@@ -1,6 +1,10 @@
 import pygame
 import random
-from cobra import criar_cobra, movimento_cobra, criar_comida
+from cobra import criar_cobra, movimento_cobra, criar_comida, detc_colisao
+from ranking import salvar_pontos
+
+#cadastro de novo jogador
+nick = str(input("Digite seu nick: "))
 
 pygame.init()
 tela = pygame.display.set_mode((600,600))
@@ -12,6 +16,9 @@ tamanhoCobra = 20
 #direcao inicial, deve ser relativa ao tamanho da cobra
 direcao = [20,0]
 comida = criar_comida(tamanhoCobra)
+pontuacao = 0
+#tamanho da fonte da pontuacao
+fonte = pygame.font.SysFont(None, 36)
 
 while rodando:
     nova_direcao = None
@@ -29,14 +36,23 @@ while rodando:
                 nova_direcao =[-20,0]
     if nova_direcao is not None and nova_direcao != [-direcao[0],-direcao[1]]:
         direcao = nova_direcao       
-    cobra,comida = movimento_cobra(cobra,comida,direcao,tamanhoCobra)
+    cobra,comida,comeu = movimento_cobra(cobra,comida,direcao,tamanhoCobra)
+    colisao = detc_colisao(cobra)
+    if colisao == True:
+       rodando = False
+    if comeu == True:
+        pontuacao += 10
     tela.fill((0,0,0))
+    #desenha a pontuacao
+    texto = fonte.render(f"Pontuação: {pontuacao}", True, (255,255,255))
+    tela.blit(texto, (10, 10))
     #desenha a comida
     pygame.draw.rect(tela,(0,255,0),(comida[0],comida[1],tamanhoCobra,tamanhoCobra))
    #desenha a cobra
     for i in cobra:
         pygame.draw.rect(tela,(255,0,0), (i[0],i[1],tamanhoCobra,tamanhoCobra))
     pygame.display.flip()
-    #velocidade da cobra, consquentemente do jogo inteiro
+    #velocidade da cobra, consequentemente do jogo inteiro
     tempo.tick(10)
 pygame.quit()
+salvar_pontos(nick,pontuacao)
