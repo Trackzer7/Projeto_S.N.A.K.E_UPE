@@ -12,7 +12,7 @@ Jogo da cobrinha desenvolvido em Python com Pygame como projeto de faculdade.
 
 ## 🛠️ Requisitos
 
-- Python 3.13 (o pygame ainda não tem suporte completo ao 3.14)
+- Python 3.13 
 - Pygame
 
 ## ▶️ Como rodar
@@ -61,22 +61,3 @@ S.N.A.K.E/
 
 - Ao final de cada partida, o nick e a pontuação são salvos em `ranking.txt`
 - O ranking completo é exibido no terminal, ordenado da maior para a menor pontuação
-
-## 📌 Funcionalidades
-
-- [x] Cobra se movendo com controle de direção
-- [x] Impedir virada de 180°
-- [x] Comida aleatória com crescimento da cobra
-- [x] Sistema de pontuação
-- [x] Tela de cadastro de nick (dentro do Pygame)
-- [x] Tela de seleção de dificuldade
-- [x] Barreiras com incremento progressivo por pontuação
-- [x] Detecção de colisão (parede, corpo próprio, barreiras)
-- [x] Ranking salvo em arquivo e exibido ordenado
-- [ ] Tela de Game Over
-- [ ] Reiniciar o jogo sem fechar o programa
-
-## ⚠️ Observações técnicas
-
-- O projeto usa **Python 3.13** especificamente porque o pygame ainda não possui build estável para o 3.13+ mais recente (3.14) no momento do desenvolvimento.
-- Se o antivírus (ex: Windows Defender) bloquear a escrita do `ranking.txt`, adicione uma exceção para a pasta do projeto.
