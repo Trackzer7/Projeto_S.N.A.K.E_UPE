@@ -10,6 +10,7 @@ tempo = pygame.time.Clock()
 velocidade = 10
 #cadastro de novo jogador
 nick = ''
+#variaveis para o loop das telas
 rodando = True
 inserindo_nick = True
 #dentro da funcao esta a posicao inicial da cobra na tela
