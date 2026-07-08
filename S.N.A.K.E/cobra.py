@@ -38,7 +38,7 @@ def criar_barreiras(dif,cobra,comida,tamanhoCobra):
     if dif == 1:
         quant = 0
     if dif == 2:
-        quant = 15
+        quant = 5
     if dif == 3:
         quant = 25
     Barreiras = []
