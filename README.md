@@ -50,7 +50,7 @@ S.N.A.K.E/
 | Dificuldade | Tecla | Velocidade | Barreiras iniciais | Barreiras a cada 100 pontos |
 |---|---|---|---|---|
 | Fácil | 1 | Normal | 0 | Não |
-| Médio | 2 | Normal | 0 | Sim (+3) |
+| Médio | 2 | Normal | 15 | Sim (+3) |
 | Difícil | 3 | Alta | 25 | Sim (+3) |
 
 - A cada 100 pontos, no médio e no difícil, 3 novas barreiras surgem no tabuleiro em posições aleatórias (nunca em cima da cobra ou da comida).
