@@ -7,7 +7,7 @@ Jogo da cobrinha desenvolvido em Python com Pygame como projeto de faculdade.
 | Integrante | Responsabilidade |
 |---|---|
 | Integrante 1 | Movimentação, mecânicas da cobra, comida, pontuação, dificuldade, telas de nick/dificuldade, barreiras |
-| Integrante 2 | Interface gráfica geral, tela de Game Over, reiniciar o jogo |
+| Integrante 2 | Interface gráfica geral, reiniciar o jogo |
 | Integrante 3 | Cadastro do nick, sistema de ranking (salvamento e ordenação) |
 
 ## 🛠️ Requisitos
