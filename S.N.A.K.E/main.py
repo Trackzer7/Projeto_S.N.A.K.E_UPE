@@ -83,52 +83,69 @@ while selec_dif:
     
     pygame.display.flip()
     tempo.tick(60)
-if rodando == True:
-    Barreiras = criar_barreiras(dif,cobra,comida,tamanhoCobra)
-else:
-    Barreiras = []
-#loop do jogo
-while rodando:
-    nova_direcao = None
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            rodando = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                nova_direcao = [0,-20]
-            if event.key == pygame.K_DOWN:
-                nova_direcao = [0,20]
-            if event.key == pygame.K_RIGHT:
-                nova_direcao = [20,0]
-            if event.key == pygame.K_LEFT:
-                nova_direcao =[-20,0]
-    if nova_direcao is not None and nova_direcao != [-direcao[0],-direcao[1]]:
-        direcao = nova_direcao       
-    cobra,comida,comeu = movimento_cobra(cobra,comida,direcao,tamanhoCobra)
-    colisao = detc_colisao(cobra,Barreiras)
-    if colisao == True:
-       rodando = False
-    if comeu == True:
-        pontuacao += 10
-        if dif == 2 or dif == 3:
-            if pontuacao % 100 == 0:
-                nova = adicionar_barreiras(3, cobra, comida, Barreiras, tamanhoCobra)
-                Barreiras.extend(nova)
 
-    tela.fill((0,0,0))
-    #desenha a pontuacao
-    texto = fonte.render(f'Pontuação: {pontuacao}', True, (255,255,255))
-    tela.blit(texto, (10, 10))
-    #desenha as barreiras
-    for j in Barreiras:
-        pygame.draw.rect(tela,(210,110,255),(j[0],j[1],tamanhoCobra,tamanhoCobra)) 
-    #desenha a comida
-    pygame.draw.rect(tela,(0,255,0),(comida[0],comida[1],tamanhoCobra,tamanhoCobra))
-   #desenha a cobra
-    for i in cobra:
-        pygame.draw.rect(tela,(255,0,0), (i[0],i[1],tamanhoCobra,tamanhoCobra))
-    pygame.display.flip()
-    #velocidade da cobra, consequentemente do jogo inteiro
-    tempo.tick(velocidade)
-pygame.quit()
-salvar_pontos(nick,pontuacao)
+jogar_novamente = True
+while jogar_novamente and rodando:
+    # reseta o estado da partida
+    cobra = criar_cobra()
+    direcao = [20,0]
+    comida = criar_comida(tamanhoCobra)
+    pontuacao = 0
+    ultimo100 = 0
+
+    if rodando == True:
+        Barreiras = criar_barreiras(dif,cobra,comida,tamanhoCobra)
+    else:
+        Barreiras = []
+
+    #loop do jogo
+    jogo_ativo = True
+    while jogo_ativo and rodando:
+        nova_direcao = None
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                rodando = False
+                jogo_ativo = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    nova_direcao = [0,-20]
+                if event.key == pygame.K_DOWN:
+                    nova_direcao = [0,20]
+                if event.key == pygame.K_RIGHT:
+                    nova_direcao = [20,0]
+                if event.key == pygame.K_LEFT:
+                    nova_direcao =[-20,0]
+        if nova_direcao is not None and nova_direcao != [-direcao[0],-direcao[1]]:
+            direcao = nova_direcao
+
+        cobra,comida,comeu = movimento_cobra(cobra,comida,direcao,tamanhoCobra)
+        colisao = detc_colisao(cobra,Barreiras)
+        if colisao == True:
+           jogo_ativo = False
+        if comeu == True:
+            pontuacao += 10
+            if dif == 2 or dif == 3:
+                if pontuacao % 100 == 0:
+                    nova = adicionar_barreiras(3, cobra, comida, Barreiras, tamanhoCobra)
+                    Barreiras.extend(nova)
+
+        tela.fill((0,0,0))
+        texto = fonte.render(f'Pontuação: {pontuacao}', True, (255,255,255))
+        tela.blit(texto, (10, 10))
+        for j in Barreiras:
+            pygame.draw.rect(tela,(210,110,255),(j[0],j[1],tamanhoCobra,tamanhoCobra))
+        pygame.draw.rect(tela,(0,255,0),(comida[0],comida[1],tamanhoCobra,tamanhoCobra))
+        for i in cobra:
+            pygame.draw.rect(tela,(255,0,0), (i[0],i[1],tamanhoCobra,tamanhoCobra))
+        pygame.display.flip()
+        tempo.tick(velocidade)
+
+    # salva a pontuação dessa partida
+    if rodando:
+        salvar_pontos(nick,pontuacao)
+
+        # pergunta no terminal se quer jogar de novo
+        resposta = input("\nJogar novamente? (s/n): ")
+        if resposta.lower() != 's':
+            jogar_novamente = False
+            rodando = False
